@@ -2,7 +2,7 @@
   "name": "react-steps",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://kiselevgleb.github.io/react-steps/build/",
+  "homepage": "https://kiselevgleb.github.io/react-steps/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
