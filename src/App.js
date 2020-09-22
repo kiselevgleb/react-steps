@@ -7,17 +7,19 @@ import { nanoid } from 'nanoid';
 
 function App() {
   const [steps, setSteps] = useState([]);
-  const [inpDate, setDate] = useState("");
-  const [inpDis, setDis] = useState("");
+  const [inpDateVal, setDate] = useState("");
+  const [inpDisVal, setDis] = useState("");
 
   const handleRemove = id => {
     setSteps(steps.filter(o => o.id !== id));
   }
   const handleEdit = id => {
+    console.log(inpDisVal)
+    console.log( inpDateVal.current)
     setSteps(prevSteps => prevSteps.map(o => {
       if (o.id === id) {
-        inpDis.current.value = o.distans;
-        inpDate.current.value = o.date;
+        inpDisVal.current.value = o.distans;
+        inpDateVal.current.value = o.date;
       }
     }));
     setSteps(steps.filter(o => o.id !== id));
