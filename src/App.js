@@ -14,15 +14,14 @@ function App() {
     setSteps(steps.filter(o => o.id !== id));
   }
   const handleEdit = id => {
-    console.log(inpDisVal)
-    console.log( inpDateVal.current)
-    setSteps(prevSteps => prevSteps.map(o => {
-      if (o.id === id) {
-        inpDisVal.current.value = o.distans;
-        inpDateVal.current.value = o.date;
-      }
-    }));
-    setSteps(steps.filter(o => o.id !== id));
+     steps.map(o => {
+        if (o.id === id) {
+          console.log(o)
+          inpDisVal.current.value = o.distans;
+          inpDateVal.current.value = o.date;
+        }
+      });
+    // setSteps(steps.filter(o => o.id !== id));
   }
   const sort = steps.sort((a, b) => {
     return new Date(b.date) - new Date(a.date);
@@ -42,18 +41,21 @@ function App() {
       }
     });
     console.log(boo)
-    if (boo) {
+    if (boo && s.step.date != "" && s.step.distans != "") {
       setSteps(prevSteps => [...prevSteps, newStep]);
-    } else {
+    } else if (s.step.date != "" && s.step.distans != "") {
       setSteps(prevSteps => [...prevSteps, s.step]);
+    } else {
+      alert("The field must be filled");
     }
+
     setDate(s.inpDate);
     setDis(s.inpDis);
   }
 
   return (
     <div className="App">
-      <StepsInp onAdd={handleAdd} />
+      <StepsInp onAdd={handleAdd} date={inpDateVal} dis={inpDisVal}/>
       <StepsOut steps={steps} onRemove={handleRemove} onEdit={handleEdit} />
     </div>
   );
