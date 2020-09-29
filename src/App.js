@@ -7,21 +7,20 @@ import { nanoid } from 'nanoid';
 
 function App() {
   const [steps, setSteps] = useState([]);
-  const [inpDateVal, setDate] = useState("");
-  const [inpDisVal, setDis] = useState("");
-
+  const [form, setF] = useState({
+    date: '',
+    dis: '',
+    suc: false,
+    });
   const handleRemove = id => {
     setSteps(steps.filter(o => o.id !== id));
   }
   const handleEdit = id => {
-     steps.map(o => {
-        if (o.id === id) {
-          console.log(o)
-          inpDisVal.current.value = o.distans;
-          inpDateVal.current.value = o.date;
-        }
-      });
-    // setSteps(steps.filter(o => o.id !== id));
+    steps.map(o => {
+      if (o.id === id) {
+        setF({date: o.date, dis: o.distans, suc: true});
+      }
+    });
   }
   const sort = steps.sort((a, b) => {
     return new Date(b.date) - new Date(a.date);
@@ -40,7 +39,6 @@ function App() {
         boo = true
       }
     });
-    console.log(boo)
     if (boo && s.step.date != "" && s.step.distans != "") {
       setSteps(prevSteps => [...prevSteps, newStep]);
     } else if (s.step.date != "" && s.step.distans != "") {
@@ -48,14 +46,12 @@ function App() {
     } else {
       alert("The field must be filled");
     }
-
-    setDate(s.inpDate);
-    setDis(s.inpDis);
+    setF({date: "", dis: "", suc: false});
   }
 
   return (
     <div className="App">
-      <StepsInp onAdd={handleAdd} date={inpDateVal} dis={inpDisVal}/>
+      <StepsInp onAdd={handleAdd} form = {form}/>
       <StepsOut steps={steps} onRemove={handleRemove} onEdit={handleEdit} />
     </div>
   );
